@@ -1,6 +1,8 @@
 package com.example.btechproject.controller;
 
 import com.example.btechproject.dto.ResponseDto;
+import com.example.btechproject.dto.user.SignInDto;
+import com.example.btechproject.dto.user.SignInResponseDto;
 import com.example.btechproject.dto.user.SignupDto;
 import com.example.btechproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +22,12 @@ public class UserController {
     public ResponseDto signup(@RequestBody SignupDto signupDto){
         return userService.signUp(signupDto);
     }
+
+
+    @PostMapping("/signIn")
+    public SignInResponseDto signup(@RequestBody SignInDto signInDto){
+        return userService.signIn(signInDto);
+    }
+
 
 }

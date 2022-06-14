@@ -18,6 +18,7 @@ public class WishList{
 
     @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false, name = "user_id")
+    // join column help us to create a new column in the table with OneToOne relationship btw the user and wishlist and new column name is user_id
     private User user;
 
     @Column(name = "created_date")
@@ -27,4 +28,9 @@ public class WishList{
     @JoinColumn(name = "product_id")
     private Product product;
 
+    public WishList(User user, Product product) {
+        this.user = user;
+        this.product = product;
+        this.createdDate= new Date();
+    }
 }
