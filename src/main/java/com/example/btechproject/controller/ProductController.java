@@ -1,9 +1,8 @@
 package com.example.btechproject.controller;
 
 import com.example.btechproject.common.ApiResponse;
-import com.example.btechproject.dto.ProductDto;
+import com.example.btechproject.dto.product.ProductDto;
 import com.example.btechproject.model.Category;
-import com.example.btechproject.model.Product;
 import com.example.btechproject.repository.CategoryRepository;
 import com.example.btechproject.repository.ProductRepository;
 import com.example.btechproject.service.ProductService;

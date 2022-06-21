@@ -1,6 +1,6 @@
 package com.example.btechproject.service;
 
-import com.example.btechproject.dto.ProductDto;
+import com.example.btechproject.dto.product.ProductDto;
 import com.example.btechproject.exceptions.ProductNotExistException;
 import com.example.btechproject.model.Category;
 import com.example.btechproject.model.Product;

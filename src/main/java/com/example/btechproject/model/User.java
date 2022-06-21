@@ -33,6 +33,16 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "user",
+            fetch = FetchType.LAZY)
+    private List<Order> orders;
+
+
+
+
+
+
     public User(String firstName, String lastName, String email, String password) {
         this.firstName= firstName;
         this.lastName = lastName;
@@ -40,10 +50,24 @@ public class User {
         this.password = password;
     }
 
-//    @JsonIgnore
-//    @OneToMany(mappedBy = "user",
-//            fetch = FetchType.LAZY)
-//    private List<Order> orders;
+    public User(String firstName, String firstName1, String email, Role role, String encryptedPassword) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.role = role;
+        this.password = password;
+
+    }
+
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
 
 
 }

@@ -1,7 +1,7 @@
 package com.example.btechproject.controller;
 
 import com.example.btechproject.common.ApiResponse;
-import com.example.btechproject.dto.ProductDto;
+import com.example.btechproject.dto.product.ProductDto;
 import com.example.btechproject.model.Product;
 import com.example.btechproject.model.User;
 import com.example.btechproject.model.WishList;

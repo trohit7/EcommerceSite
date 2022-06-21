@@ -1,5 +1,6 @@
 package com.example.btechproject.model;
 
+import com.example.btechproject.dto.order.PlaceOrderDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 
-
+@Data
 @Entity
 @NoArgsConstructor
 @Table(name="orders")
@@ -35,5 +36,22 @@ public class Order {
     @JsonIgnore
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+
+    public Order(PlaceOrderDto orderDto, User user, String sessionId){
+        this.user = user;
+        this.createdDate = new Date();
+        this.totalPrice = orderDto.getTotalPrice();
+        this.sessionId = sessionId;
+    }
+
+
+//    public Order(PlaceOrderDto orderDto, User user, String sessionId){
+//        this.user = user;
+//        this.createdDate = new Date();
+//        this.totalPrice = orderDto.getTotalPrice();
+//        this.sessionId = sessionId;
+//    }
+
+
 
 }

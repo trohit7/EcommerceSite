@@ -3,6 +3,7 @@ package com.example.btechproject.service;
 import com.example.btechproject.dto.cart.AddToCartDto;
 import com.example.btechproject.dto.cart.CartDto;
 import com.example.btechproject.dto.cart.CartItemDto;
+import com.example.btechproject.exceptions.CartItemNotExistException;
 import com.example.btechproject.exceptions.CustomException;
 import com.example.btechproject.model.Cart;
 import com.example.btechproject.model.Product;
@@ -54,17 +55,27 @@ public class CartService {
         return cartDto;
     }
 
-    public void deleteCartItem(Integer cartItemId, User user) {
+    public void deleteCartItem(int id,int userId) throws CartItemNotExistException {
+        if (!cartRepository.existsById(id))
+            throw new CartItemNotExistException("Cart id is invalid : " + id);
+        cartRepository.deleteById(id);
 
-        Optional<Cart> optionalCart = cartRepository.findById(cartItemId);
+    }
 
-        if(optionalCart.isEmpty()){
-            throw new CustomException("cart item id is invalid:" +cartItemId);
-        }
-        Cart cart = optionalCart.get();
-        if(cart.getUser() != user){
-            throw new CustomException("cart item does not belongto user:"+ cartItemId);
-        }
-        cartRepository.delete(cart);
+
+    public void updateCartItem(AddToCartDto cartDto, User user,Product product){
+        Cart cart = cartRepository.getOne(cartDto.getId());
+        cart.setQuantity(cartDto.getQuantity());
+        cart.setCreatedDate(new Date());
+        cartRepository.save(cart);
+    }
+
+    public void deleteCartItems(int userId) {
+        cartRepository.deleteAll();
+    }
+
+
+    public void deleteUserCartItems(User user) {
+        cartRepository.deleteByUser(user);
     }
 }

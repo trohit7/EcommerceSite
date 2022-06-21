@@ -1,12 +1,11 @@
 package com.example.btechproject.service;
 
-import com.example.btechproject.dto.ProductDto;
+import com.example.btechproject.dto.product.ProductDto;
 import com.example.btechproject.model.Product;
 import com.example.btechproject.model.User;
 import com.example.btechproject.model.WishList;
 import com.example.btechproject.repository.WishListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.example.btechproject.dto;
+package com.example.btechproject.dto.product;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

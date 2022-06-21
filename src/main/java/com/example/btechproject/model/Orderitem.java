@@ -36,4 +36,15 @@ public class Orderitem {
     @OneToOne
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Product product;
+
+
+    public Orderitem(Order order, @NotNull Product product, @NotNull int quantity, @NotNull double price) {
+        this.product = product;
+        this.quantity = quantity;
+        this.price = price;
+        this.order= order;
+        this.createdDate = new Date();
+    }
+
+
 }
