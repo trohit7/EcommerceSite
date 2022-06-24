@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoryService {
@@ -29,6 +30,15 @@ public class CategoryService {
         category.setImageUrl(updateCategory.getImageUrl());
         categoryRepository.save(category);
     }
+
+    public Optional<Category> readCategory(Integer categoryId) {
+        return categoryRepository.findById(categoryId);
+    }
+
+    public Category readCategory(String categoryName) {
+        return categoryRepository.findByCategoryName(categoryName);
+    }
+
 
     public  boolean findById(int  categoryId){
         return categoryRepository.findById(categoryId).isPresent();
