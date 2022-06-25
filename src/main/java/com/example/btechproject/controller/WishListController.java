@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -53,15 +54,14 @@ public class WishListController {
 
     @GetMapping("/{token}")
     public ResponseEntity<List<ProductDto>> getwhishlist(@PathVariable("token") String token){
-        // authenticate token
-        authenticationService.authenticate(token);
-        // find the user if token is present and check whether token is valid or not(find user)
-        User user = authenticationService.getUser(token);
+        int user_id = authenticationService.getUser(token).getId();
+        List<WishList> body = wishListService.readWishList(user_id);
+        List<ProductDto> products = new ArrayList<ProductDto>();
+        for (WishList wishList : body) {
+            products.add(ProductService.getDtoFromProduct(wishList.getProduct()));
+        }
 
-        // productdtos = wishListForUser
-
-        List<ProductDto> productDtos = wishListService.getWishListForUser(user);
-        return  new ResponseEntity<>(productDtos,HttpStatus.OK);
+        return new ResponseEntity<List<ProductDto>>(products, HttpStatus.OK);
 
     }
 

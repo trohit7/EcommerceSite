@@ -17,6 +17,11 @@ public class ProductService {
     @Autowired
     ProductRepository productRepository;
 
+    public static ProductDto getDtoFromProduct(Product product) {
+        ProductDto productDto = new ProductDto(product);
+        return productDto;
+    }
+
     public void createProduct(ProductDto productDto, Category category){
         Product product= new Product();
         product.setDescription(productDto.getDescription());

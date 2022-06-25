@@ -17,5 +17,7 @@ public interface WishListRepository extends JpaRepository<WishList,Integer> {
     // get wishlist -- find All the products Ordered  By the User  and list them in  "CreatedDate" in  Desc order
     List<WishList> findAllByUserOrderByCreatedDateDesc(User user);
 
+    List<WishList> findAllByUserIdOrderByCreatedDateDesc(Integer userId);
+
 
 }

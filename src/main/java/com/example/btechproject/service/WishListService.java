@@ -40,5 +40,8 @@ public class WishListService {
    }
 
 
+    public List<WishList> readWishList(Integer userId) {
+        return wishListRepository.findAllByUserIdOrderByCreatedDateDesc(userId);
 
+    }
 }
