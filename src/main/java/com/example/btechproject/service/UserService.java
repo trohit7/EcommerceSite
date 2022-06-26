@@ -12,8 +12,6 @@ import com.example.btechproject.exceptions.AuthenticationFailException;
 import com.example.btechproject.exceptions.CustomException;
 import com.example.btechproject.model.AuthenticationToken;
 import com.example.btechproject.model.User;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import com.example.btechproject.repository.UserRepository;
 
 import com.example.btechproject.utils.Helper;
@@ -26,7 +24,7 @@ import javax.xml.bind.DatatypeConverter;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Objects;
+import java.util.List;
 
 import static com.example.btechproject.config.security.MessageStrings.USER_CREATED;
 
@@ -161,6 +159,11 @@ public class UserService {
 
 
 
+    }
+
+    public List<User> findAll() {
+        List<User> user = userRepository.findAll();
+        return user;
     }
 }
 

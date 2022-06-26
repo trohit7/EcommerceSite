@@ -26,14 +26,13 @@ public class UserController {
     @Autowired
     AuthenticationService authenticationService;
 
-    @Autowired
-    UserRepository userRepository;
+
 
 
     @GetMapping("/all")
     public List<User> findAllUser(@RequestParam("token") String token) throws AuthenticationFailException {
         authenticationService.authenticate(token);
-        return userRepository.findAll();
+        return userService.findAll();
     }
 
     @PostMapping("/signUp")
