@@ -11,12 +11,15 @@ import com.example.btechproject.model.User;
 import com.example.btechproject.repository.UserRepository;
 import com.example.btechproject.service.AuthenticationService;
 import com.example.btechproject.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@Slf4j
+@CrossOrigin
 @RequestMapping("user")
 public class UserController {
 
@@ -37,12 +40,14 @@ public class UserController {
 
     @PostMapping("/signUp")
     public ResponseDto signup(@RequestBody SignupDto signupDto){
+        log.info("Trying to create account for {}",signupDto.getEmail());
         return userService.signUp(signupDto);
     }
 
 
     @PostMapping("/signIn")
-    public SignInResponseDto signup(@RequestBody SignInDto signInDto){
+    public SignInResponseDto signin(@RequestBody SignInDto signInDto){
+        log.info("{} signed in",signInDto.getEmail());
         return userService.signIn(signInDto);
     }
 

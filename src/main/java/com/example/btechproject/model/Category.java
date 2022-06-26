@@ -1,5 +1,6 @@
 package com.example.btechproject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -20,6 +21,7 @@ public class Category {
     private @NotBlank String description;
     private  String imageUrl;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     Set<Product> products;

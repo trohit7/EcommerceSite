@@ -16,6 +16,8 @@ import com.example.btechproject.repository.UserRepository;
 
 import com.example.btechproject.utils.Helper;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,9 +39,11 @@ public class UserService {
     @Autowired
     AuthenticationService authenticationService;
 
+    Logger logger = LoggerFactory.getLogger(UserService.class);
+
 
     @Transactional
-    public ResponseDto signUp(SignupDto signupDto){
+    public ResponseDto signUp(SignupDto signupDto) throws CustomException{
         // check if the user is already  present
         if (Helper.notNull(userRepository.findByEmail(signupDto.getEmail()))){
             //if we have the user already present then we will handle with Exceptions
@@ -53,17 +57,25 @@ public class UserService {
             encryptedpassword = hashPassword(signupDto.getPassword());
 
         } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            logger.error("hashing password failed {}", e.getMessage());
         }
         // create a new user
-        User user = new User(signupDto.getFirstName(),signupDto.getLastName(),signupDto.getEmail(),encryptedpassword);
-        userRepository.save(user);
-        // save the user with encrypted password
-        // now create the token for new user
-       final AuthenticationToken authenticationToken =  new AuthenticationToken(user);
-       authenticationService.saveConfirmationToken(authenticationToken);
-       ResponseDto responseDto = new ResponseDto("success","new user is signedup");
-        return responseDto;
+        User user = new User(signupDto.getFirstName(),signupDto.getLastName(),signupDto.getEmail(), Role.user,encryptedpassword);
+        User createdUser;
+        try {
+            // save the User
+            createdUser = userRepository.save(user);
+            // generate token for user
+            final AuthenticationToken authenticationToken = new AuthenticationToken(createdUser);
+            // save token in database
+            authenticationService.saveConfirmationToken(authenticationToken);
+            // success in creating
+            return new ResponseDto(ResponseStatus.success.toString(), USER_CREATED);
+        } catch (Exception e) {
+            // handle signup error
+            throw new CustomException(e.getMessage());
+        }
 
     }
 
@@ -101,14 +113,6 @@ public class UserService {
         return new SignInResponseDto("success",token.getToken());
 
     }
-
-
-
-
-
-
-
-
 
     boolean canCrudUser(Role role) {
         if (role == Role.admin || role == Role.manager) {
