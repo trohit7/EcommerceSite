@@ -21,8 +21,9 @@ public class Product {
     private @NotNull double price;
     private @NotNull String description;
 
+
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "category_id", nullable = false)
     Category category;
 

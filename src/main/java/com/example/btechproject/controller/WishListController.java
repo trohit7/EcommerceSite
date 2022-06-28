@@ -66,17 +66,17 @@ public class WishListController {
 
     }
 
-//    @PostMapping("/delete/{token},{productId}")
-//    public ResponseEntity<ApiResponse> deleteproduct(@PathVariable ("token") String token, @PathVariable Integer productId){
-//        // authenticate token
-//        authenticationService.authenticate(token);
-//        // find the user if token is present and check whether token is valid or not(find user)
-//        User user = authenticationService.getUser(token);
-//
-//        List<ProductDto> productDtos = wishListService.getWishListForUser(user);
-//        if(productId.equals(productDtos.))
-//
-//        return null;
-//    }
+@DeleteMapping("/delete/{wishListId}")
+    public ResponseEntity<ApiResponse> deleteCartItem(@PathVariable("wishListId")Integer Id,
+                                                      @RequestParam("token") String token){
+        // authenticate token
+        authenticationService.authenticate(token);
+        // find the user if token is present and check whether token is valid or not(find user)
+        int userId = authenticationService.getUser(token).getId();
+            wishListService.deleteItem(Id , userId);
+
+        return  new ResponseEntity<>(new ApiResponse(true,"Item is removed from the wishList"), HttpStatus.OK);
+
+    }
 
 }

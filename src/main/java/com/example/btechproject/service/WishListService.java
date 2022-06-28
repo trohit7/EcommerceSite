@@ -1,6 +1,7 @@
 package com.example.btechproject.service;
 
 import com.example.btechproject.dto.product.ProductDto;
+import com.example.btechproject.exceptions.CartItemNotExistException;
 import com.example.btechproject.model.Product;
 import com.example.btechproject.model.User;
 import com.example.btechproject.model.WishList;
@@ -43,5 +44,11 @@ public class WishListService {
     public List<WishList> readWishList(Integer userId) {
         return wishListRepository.findAllByUserIdOrderByCreatedDateDesc(userId);
 
+    }
+
+    public void deleteItem(Integer id, int userId) throws CartItemNotExistException {
+        if (!wishListRepository.existsById(id))
+            throw new CartItemNotExistException("Cart id is invalid : " + id);
+        wishListRepository.deleteById(id);
     }
 }

@@ -21,7 +21,7 @@ public class Category {
     private @NotBlank String description;
     private  String imageUrl;
 
-    @JsonIgnore
+
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     Set<Product> products;

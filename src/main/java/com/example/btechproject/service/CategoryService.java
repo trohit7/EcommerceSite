@@ -5,6 +5,7 @@ import com.example.btechproject.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,10 +20,12 @@ public class CategoryService {
     }
 
 
+
     public List<Category> listCategory() {
         return categoryRepository.findAll();
     }
 
+    @Transactional
     public  void editCategory(int categoryId, Category updateCategory){
         Category category= categoryRepository.getReferenceById(categoryId);
         category.setCategoryName(updateCategory.getCategoryName());
