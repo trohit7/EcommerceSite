@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
 @Service
 public class OrderService {
     @Autowired
@@ -66,7 +67,7 @@ public class OrderService {
     }
 
 
-    @Transactional
+
     public void placeOrder(User user, String sessionId) {
         CartDto cartDto = cartService.listcartItems(user);
 
