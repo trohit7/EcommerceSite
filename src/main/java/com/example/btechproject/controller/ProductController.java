@@ -53,7 +53,7 @@ public class ProductController {
         productService.updateProduct(productDto,productId);
         return new ResponseEntity<>(new ApiResponse(true,"product has been updated"),HttpStatus.OK);
     }
-    @PostMapping("/delete/{productId}")
+    @DeleteMapping("/delete/{productId}")
 
     public ResponseEntity<ApiResponse> deleteProduct(@PathVariable("productId") Integer productId){
 
