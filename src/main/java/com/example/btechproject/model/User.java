@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity
@@ -23,6 +25,8 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
+    @NotBlank
+    @Email(message = "provide a valid email")
     @Column(name = "email")
     private String email;
 
